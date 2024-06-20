@@ -11,6 +11,7 @@
     "url": "https://github.com/handsontable/handsontable/issues"
   },
   "author": "Handsoncode <hello@handsontable.com>",
+  "version": "14.4.0+1",
   "scripts": {
     "in": "cross-env-shell COMMAND_ENV=in node scripts/translate-to-native-npm.mjs",
     "all": "cross-env-shell COMMAND_ENV=all node scripts/translate-to-native-npm.mjs",
