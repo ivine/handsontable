@@ -1,5 +1,6 @@
 import { sanitize } from '../string';
 import { A11Y_HIDDEN } from '../a11y';
+import isNil from 'lodash/isNil';
 
 /**
  * Get the parent of the specified node in the DOM tree.
@@ -55,6 +56,9 @@ export function isThisHotChild(element, thisHotContainer) {
  * @returns {HTMLIFrameElement|null}
  */
 export function getFrameElement(frame) {
+  if (isNil(frame.parent) || isNil(frame.frameElement)) {
+    return null;
+  }
   return Object.getPrototypeOf(frame.parent) && frame.frameElement;
 }
 
@@ -65,6 +69,9 @@ export function getFrameElement(frame) {
  * @returns {Window|null}
  */
 export function getParentWindow(frame) {
+  if (isNil(frame.parent)) {
+    return null;
+  }
   return getFrameElement(frame) && frame.parent;
 }
 
@@ -75,6 +82,9 @@ export function getParentWindow(frame) {
  * @returns {boolean}
  */
 export function hasAccessToParentWindow(frame) {
+  if (isNil(frame.parent)) {
+    return false;
+  }
   return !!Object.getPrototypeOf(frame.parent);
 }
 
@@ -683,8 +693,8 @@ export function getTrimmingContainer(base) {
     const propertyX = computedStyle.getPropertyValue('overflow-x');
 
     if (allowedProperties.includes(property) ||
-        allowedProperties.includes(propertyY) ||
-        allowedProperties.includes(propertyX)) {
+      allowedProperties.includes(propertyY) ||
+      allowedProperties.includes(propertyX)) {
       return el;
     }
 
